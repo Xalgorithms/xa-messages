@@ -13,13 +13,13 @@ module XA
       
       def up
         super
-        logger.info("# creating fanout (name=#{name})")
-        @fanout = channel.fanout(name)
+        logger.info("# creating direct (name=#{name})")
+        @exchange = channel.direct(name)
       end
 
       def publish(o)
         logger.info("> [#{name}]: #{o.inspect}")
-        @fanout.publish(MultiJson.encode(o))
+        @exchange.publish(MultiJson.encode(o))
       end
     end
   end
